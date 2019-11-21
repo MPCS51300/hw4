@@ -1,0 +1,5 @@
+ply==3.11
+python-afl==0.7.2
+PyYAML==5.1.2
+conda==4.7.12
+llvmlite==0.29.0

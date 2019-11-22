@@ -41,7 +41,7 @@ else:
     if args.emit_ast:
         write_to_file(args.o,  yaml.dump(ast))
     mod = codeGen.generate_code(ast, undefined)
-    mod = binding.compile_and_execute(mod)
+    mod = binding.compile_and_execute(mod, args.O)
     if args.emit_llvm:
         write_to_file(args.o, mod)
 

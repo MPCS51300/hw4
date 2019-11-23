@@ -1,0 +1,50 @@
+#
+
+extern int arg(int);
+extern float argf(int);
+
+def int fib (int $n) {
+    if ($n < 1)
+        if ($n == 0)
+            return 0;
+        else
+            return 1;
+    
+    int $a = fib ($n - 1);
+    int $b = fib ($n - 2);
+    return $a + $b;
+}
+def void inc (ref int $n) {
+  $n = $n + 1;
+}
+def void things (ref int $n) {
+ bool $f=true;
+  while (!($n > 100)) {
+    $n = $n * $n - 1;
+  }
+}
+
+def int run () {
+    int $d = 1;
+    print $d;
+
+    ## funcational call
+    $d = fib(5);
+    print $d;
+    # print fib(5); # should be 1224  bug!!!
+
+    ## assign
+    # print $f = 4; bug!!!
+
+    int $val = fib(5);
+    inc($val);
+    things($val);
+    print $val;
+    print $val+1;
+    print true;
+    print false;
+    print "hello";
+    print "kitty !";
+    return 0;
+}
+

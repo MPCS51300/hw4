@@ -1,0 +1,94 @@
+#
+
+extern int arg(int);
+extern float argf(int);
+
+def int fib (int $n) {
+    if ($n < 1)
+        if ($n == 0)
+            return 0;
+        else
+            return 1;
+    
+    int $a = fib ($n - 1);
+    int $b = fib ($n - 2);
+    return $a + $b;
+}
+def void inc (ref int $n) {
+  $n = $n + 1;
+}
+def void things (ref int $n) {
+ bool $f=true;
+  while (!($n > 100)) {
+    $n = $n * $n - 1;
+  }
+}
+
+def int run () {
+
+    # Check arg, argf
+    int $a = arg(0);
+    print $a;
+    float $b = argf(1);
+    print $b;
+
+    # Check casting
+    int $d = 1;
+    print $d; # should be 1
+    float $e = [float] $d;
+    print $e; # should be 1.0000
+
+    # Check casting
+    $e = 2.2;
+    print $e; # should be 2.2000
+    $d = [int] $e;
+    print $d; # should be 2
+
+    # Check ref int working?
+    ref int $f = $d;
+    print $f; # should be 2
+    inc($f);
+    print $f; # should be 3
+
+    # Check print expression
+    ## logical binop
+    print $f == $d; # should be 1
+    print $e == [float]$d; # should be 0
+    print $e > [float]$d; # should be 0
+    print $e < [float]$d; # should be 1
+    print $f == $d || $e == [float]$d; # should be 1
+    print $f == $d && $e == [float]$d; # should be 0
+
+    ## arithmetic binop
+    print $f + $d; # should be 6
+    print $f / $d; # should be 1
+    print $f - $d; # should be 0
+    print $f * $d; # should be 9
+
+    ## uop
+    print !($f == $d); # should be 0
+    print - $f; # should be -3  !!!
+
+    ## cast
+    print [float]1; # should be 1.000
+
+    ## funcational call
+    $d = fib(5);
+    print $d;
+    # print -fib(5); # should be 1224  !!!
+
+    ## assign
+    # print $f = 4; !!!
+
+    int $val = fib(5);
+    inc($val);
+    things($val);
+    print $val;
+    print $val+1;
+    print true;
+    print false;
+    print "hello";
+    print "kitty !";
+    return 0;
+}
+

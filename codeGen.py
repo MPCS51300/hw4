@@ -170,9 +170,9 @@ def generate_uop(ast, module, builder, variables):
         # if exp.type.is_pointer:
         #     exp = builder.load(exp)
         exp = load_var(builder, exp)
-        if ast["exptype"] == "float":
+        if "float" in ast["exptype"]:
             return builder.fsub(ir.Constant(generate_type("float"), 0.0), exp)
-        elif ast["exptype"] == "int":
+        elif  "int" in ast["exptype"]:
             return builder.sub(ir.Constant(generate_type("int"), 0), exp)
 
 def is_int(typ):
@@ -202,9 +202,16 @@ def generate_assign(ast, module, builder, variables):
     # if exp.type.is_pointer:
     #     exp = builder.load(exp)
     exp = load_var(builder, exp)
+    if ast["var"] == "$d":
+        print("exp: ", exp, ";exp type: ", exp.type)
+        print("var?:", ast["var"], "; variables[ast['var']]:", variables[ast["var"]], "; type?:", variables[ast["var"]].type)
     builder.store(exp, variables[ast["var"]])
 
 def generate_funccall(ast, module, builder, variables):
+    if ast["globid"] == "fib":
+        for k,v in variables.items():
+            print(k," : ",v)
+
     fn = module.get_global(ast["globid"])
     args = []
     if "params" not in ast or "exps" not in ast["params"]:

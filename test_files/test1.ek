@@ -34,7 +34,17 @@ def int run () {
     # print fib(5); # should be 1224  bug!!!
 
     ## assign
-    # print $f = 4; bug!!!
+    int $f=0;
+    int $r=0;
+    int $t=0;
+    int $y=0;
+    int $u=0;
+    print $f =$r=$t=$y=$u=10000;
+    print $f;
+    print $r;
+    print $t;
+    print $y;
+    print $u;
 
     int $val = fib(5);
     inc($val);

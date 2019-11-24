@@ -383,7 +383,7 @@ def generate_func(ast, module):
         result = generate_blk(ast["blk"], module, builder, func, variables)
 
     # Returns void if return type is void
-    if ast["ret_type"] == "void":
+    if not builder.block.is_terminated:
         builder.ret_void()
     
 def generate_funcs(ast, module):

@@ -232,7 +232,8 @@ def p_binop(p):
         p[0] = {
             "name": "assign",
             "var": p[1],
-            "exp": p[3]
+            "exp": p[3],
+            "exptype": "assign"
         }
     else:
         p[0] = {
@@ -546,7 +547,10 @@ def check_violation(node):
                     var_key = node["var"]
                 if var_key not in variables:
                     raise CompilerException("error: variable " + node["var"] + " has not been declared")
-                if not_same_type(variables[var_key], node["exp"]["exptype"]):
+                temp = node
+                while temp["exp"]["exptype"] == "assign":
+                    temp = temp["exp"]
+                if not_same_type(variables[var_key], temp["exp"]["exptype"]):
                     raise CompilerException("error: the type on two sides do not match")
             
             elif node["name"] == "caststmt":
